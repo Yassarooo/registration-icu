@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @FeignClient(name = "auth-service", fallback = AuthServiceClient.AuthServiceClientClientFallback.class)
-
 public interface AuthServiceClient {
 
     @PostMapping(value = "/api/register")

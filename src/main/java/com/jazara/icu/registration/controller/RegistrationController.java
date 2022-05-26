@@ -48,11 +48,6 @@ public class RegistrationController {
     @Autowired
     private VerificationTokenService tokenService;
 
-    @HystrixCommand(
-            fallbackMethod = "sendunderConstruction",
-            commandProperties = {
-                    @HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds", value = "1000")
-            })
     @PostMapping(value = "/register")
     public ResponseEntity<String> registerAndSendEmail(@RequestBody UserDTO user, final HttpServletRequest request) {
         ResponseEntity<String> m = authServiceClient.registerUserAccount(user);
@@ -61,9 +56,6 @@ public class RegistrationController {
         }
         eventPublisher.publishEvent(new OnRegistrationCompleteEvent(m.getBody(), request.getLocale(), getAppUrl(request)));
         return new ResponseEntity<String>("success", HttpStatus.OK);
-    }
-    public ResponseEntity<String> sendunderConstruction() {
-        return new ResponseEntity<String>("redirect:/underconstruction", HttpStatus.OK);
     }
 
     @PostMapping(value = "/registrationconfirm")

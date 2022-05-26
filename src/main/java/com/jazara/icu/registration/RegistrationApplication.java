@@ -12,8 +12,6 @@ import org.springframework.cloud.netflix.hystrix.dashboard.EnableHystrixDashboar
 @EnableFeignClients
 @SpringBootApplication
 @EnableCircuitBreaker
-@EnableHystrix
-@EnableHystrixDashboard
 public class RegistrationApplication {
 
     public static void main(String[] args) {
