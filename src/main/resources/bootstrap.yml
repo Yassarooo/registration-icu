@@ -13,3 +13,6 @@ spring:
         multiplier: 2
         max-attempts: 10
 
+jasypt:
+  encryptor:
+    password: jazaradebuggers
