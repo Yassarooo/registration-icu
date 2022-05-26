@@ -10,6 +10,7 @@ import org.springframework.cloud.netflix.feign.EnableFeignClients;
 @EnableFeignClients
 @SpringBootApplication
 @EnableCircuitBreaker
+@EnableEncryptableProperties
 public class RegistrationApplication {
 
     public static void main(String[] args) {
