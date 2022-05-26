@@ -3,7 +3,7 @@ spring:
     name: registration-service
   cloud:
     config:
-      uri: http://config-icu.herokuapp.com
+      uri: https://config-icu.herokuapp.com
       fail-fast: true
       username: user
       password: ${CONFIG_SERVER_PASSWORD:password}
