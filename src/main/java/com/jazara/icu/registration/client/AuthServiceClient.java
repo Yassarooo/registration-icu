@@ -1,11 +1,9 @@
 package com.jazara.icu.registration.client;
 
 import com.jazara.icu.registration.domain.UserDTO;
-import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
-import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.cloud.netflix.feign.FeignClient;
+import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
@@ -19,7 +17,7 @@ public interface AuthServiceClient {
     ResponseEntity<String> registerUserAccount(UserDTO user);
 
     @PostMapping(value = "/api/activate")
-    ResponseEntity<String> activateUserAccount(String emailorusername,@RequestParam("serviceid") String serviceid);
+    ResponseEntity<String> activateUserAccount(String emailorusername);
 
     @Component
     class AuthServiceClientClientFallback implements AuthServiceClient {
@@ -33,7 +31,7 @@ public interface AuthServiceClient {
         }
 
         @Override
-        public ResponseEntity<String> activateUserAccount(String emailorusername,@RequestParam("serviceid") String serviceid) {
+        public ResponseEntity<String> activateUserAccount(String emailorusername) {
             LOGGER.info("fallback");
             return new ResponseEntity<String>("failed", HttpStatus.BAD_REQUEST);
         }

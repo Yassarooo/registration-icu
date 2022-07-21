@@ -5,8 +5,6 @@ import com.jazara.icu.registration.config.OnRegistrationCompleteEvent;
 import com.jazara.icu.registration.domain.UserDTO;
 import com.jazara.icu.registration.domain.VerificationToken;
 import com.jazara.icu.registration.service.VerificationTokenService;
-import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
-import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
@@ -60,8 +58,7 @@ public class RegistrationController {
 
     @PostMapping(value = "/registrationconfirm")
     public ResponseEntity<String> registrationConfirm(@RequestParam("token") String token, @RequestParam("email") String email) {
-        ServiceInstance serviceInstance = discoveryClient.getLocalServiceInstance();
-        return new ResponseEntity<String>(tokenService.validateVerificationToken(token, email, serviceInstance.getServiceId()), HttpStatus.OK);
+        return new ResponseEntity<String>(tokenService.validateVerificationToken(token, email), HttpStatus.OK);
     }
 
     @GetMapping("/resendEmail")

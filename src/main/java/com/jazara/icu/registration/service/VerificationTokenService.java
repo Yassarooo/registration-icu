@@ -73,7 +73,7 @@ public class VerificationTokenService {
         }
     }
 
-    public String validateVerificationToken(String token,String email,String serviceid) {
+    public String validateVerificationToken(String token,String email) {
         VerificationToken verificationToken = tokenRepository.findByToken(token);
         if (verificationToken == null) {
             verificationToken = tokenRepository.findByCode(token);
@@ -91,7 +91,7 @@ public class VerificationTokenService {
         }
 
         if (verificationToken.getEmail().equals(email)) {
-            ResponseEntity<String> m = authServiceClient.activateUserAccount(verificationToken.getEmail(),serviceid);
+            ResponseEntity<String> m = authServiceClient.activateUserAccount(verificationToken.getEmail());
             if (m.getBody().contains("success")) {
                 tokenRepository.delete(verificationToken);
                 return TOKEN_VALID;
