@@ -1,11 +1,13 @@
-package com.jazara.icu.registration.controller;
+package com.jazara.icu.registration.service;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
 import java.util.Map;
 
+@Service
 public class CustomResponse {
 
     public ResponseEntity<Map<String, Object>> HandleResponse(Boolean success, String message, Object result, HttpStatus status) {

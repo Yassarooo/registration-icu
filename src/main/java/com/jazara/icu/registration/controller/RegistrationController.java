@@ -4,9 +4,9 @@ import com.jazara.icu.registration.client.AuthServiceClient;
 import com.jazara.icu.registration.config.OnRegistrationCompleteEvent;
 import com.jazara.icu.registration.domain.UserDTO;
 import com.jazara.icu.registration.domain.VerificationToken;
+import com.jazara.icu.registration.service.CustomResponse;
 import com.jazara.icu.registration.service.VerificationTokenService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.cloud.netflix.eureka.EurekaDiscoveryClient;
 import org.springframework.context.ApplicationEventPublisher;
@@ -26,6 +26,7 @@ import java.util.Map;
 @RestController
 public class RegistrationController {
 
+    @Autowired
     private CustomResponse customResponse;
 
     @Autowired
