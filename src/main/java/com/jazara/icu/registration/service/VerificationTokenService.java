@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.Calendar;
+import java.util.Map;
 import java.util.Random;
 import java.util.UUID;
 
@@ -91,8 +92,8 @@ public class VerificationTokenService {
         }
 
         if (verificationToken.getEmail().equals(email)) {
-            ResponseEntity<String> m = authServiceClient.activateUserAccount(verificationToken.getEmail());
-            if (m.getBody().contains("success")) {
+            ResponseEntity<Map<String, Object>> m = authServiceClient.activateUserAccount(verificationToken.getEmail());
+            if (m.getBody().get("success").equals(true)) {
                 tokenRepository.delete(verificationToken);
                 return TOKEN_VALID;
             }

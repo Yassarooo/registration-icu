@@ -10,14 +10,17 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @FeignClient(name = "auth-service", fallback = AuthServiceClient.AuthServiceClientClientFallback.class)
 public interface AuthServiceClient {
 
     @PostMapping(value = "/api/register")
-    ResponseEntity<String> registerUserAccount(UserDTO user);
+    ResponseEntity<Map<String, Object>> registerUserAccount(UserDTO user);
 
     @PostMapping(value = "/api/activate")
-    ResponseEntity<String> activateUserAccount(String emailorusername);
+    ResponseEntity<Map<String, Object>> activateUserAccount(String emailorusername);
 
     @Component
     class AuthServiceClientClientFallback implements AuthServiceClient {
@@ -25,15 +28,23 @@ public interface AuthServiceClient {
         private static final Logger LOGGER = LoggerFactory.getLogger(AuthServiceClientClientFallback.class);
 
         @Override
-        public ResponseEntity<String> registerUserAccount(UserDTO user) {
+        public ResponseEntity<Map<String, Object>> registerUserAccount(UserDTO user) {
             LOGGER.info("fallback");
-            return new ResponseEntity<String>("failed", HttpStatus.BAD_REQUEST);
+            Map<String, Object> map = new HashMap<>();
+            map.put("success", false);
+            map.put("message", "fallback method");
+            map.put("result", "");
+            return new ResponseEntity<Map<String, Object>>(map, HttpStatus.BAD_REQUEST);
         }
 
         @Override
-        public ResponseEntity<String> activateUserAccount(String emailorusername) {
+        public ResponseEntity<Map<String, Object>> activateUserAccount(String emailorusername) {
             LOGGER.info("fallback");
-            return new ResponseEntity<String>("failed", HttpStatus.BAD_REQUEST);
+            Map<String, Object> map = new HashMap<>();
+            map.put("success", false);
+            map.put("message", "fallback method");
+            map.put("result", "");
+            return new ResponseEntity<Map<String, Object>>(map, HttpStatus.BAD_REQUEST);
         }
     }
 }

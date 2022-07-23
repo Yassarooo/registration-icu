@@ -20,10 +20,13 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Locale;
+import java.util.Map;
 
 @RefreshScope
 @RestController
 public class RegistrationController {
+
+    private CustomResponse customResponse;
 
     @Autowired
     private AuthServiceClient authServiceClient;
@@ -47,13 +50,13 @@ public class RegistrationController {
     private VerificationTokenService tokenService;
 
     @PostMapping(value = "/register")
-    public ResponseEntity<String> registerAndSendEmail(@RequestBody UserDTO user, final HttpServletRequest request) {
-        ResponseEntity<String> m = authServiceClient.registerUserAccount(user);
-        if (m.getStatusCode() != HttpStatus.OK) {
-            return new ResponseEntity<String>("cannot", HttpStatus.BAD_REQUEST);
+    public ResponseEntity<Map<String, Object>> registerAndSendEmail(@RequestBody UserDTO user, final HttpServletRequest request) {
+        ResponseEntity<Map<String, Object>> m = authServiceClient.registerUserAccount(user);
+        if (m.getBody().get("success").equals(false)) {
+            return customResponse.HandleResponse(false, "couldn't register account", "", HttpStatus.BAD_REQUEST);
         }
-        eventPublisher.publishEvent(new OnRegistrationCompleteEvent(m.getBody(), request.getLocale(), getAppUrl(request)));
-        return new ResponseEntity<String>("success", HttpStatus.OK);
+        eventPublisher.publishEvent(new OnRegistrationCompleteEvent(m.getBody().get("message").toString(), request.getLocale(), getAppUrl(request)));
+        return customResponse.HandleResponse(true, "Email Sent Successfully, Please Check your inbox", "", HttpStatus.OK);
     }
 
     @PostMapping(value = "/registrationconfirm")
@@ -62,10 +65,10 @@ public class RegistrationController {
     }
 
     @GetMapping("/resendEmail")
-    public ResponseEntity<String> resendRegistrationToken(final HttpServletRequest request, @RequestParam("email") final String email) {
+    public ResponseEntity<Map<String, Object>> resendRegistrationToken(final HttpServletRequest request, @RequestParam("email") final String email) {
         final VerificationToken newToken = tokenService.generateNewVerificationToken(email);
         mailSender.send(constructResendVerificationTokenEmail(getAppUrl(request), request.getLocale(), newToken, email));
-        return new ResponseEntity<String>("Email sent successfully", HttpStatus.OK);
+        return customResponse.HandleResponse(true, "Email Sent Successfully, Please Check your inbox", "", HttpStatus.OK);
     }
 
     // ============== NON-API ============
