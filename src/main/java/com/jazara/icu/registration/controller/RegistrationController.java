@@ -55,7 +55,7 @@ public class RegistrationController {
         if (m.getBody().get("success").equals(false)) {
             return customResponse.HandleResponse(false, "couldn't register account", "", HttpStatus.BAD_REQUEST);
         }
-        eventPublisher.publishEvent(new OnRegistrationCompleteEvent(m.getBody().get("message").toString(), request.getLocale(), getAppUrl(request)));
+        eventPublisher.publishEvent(new OnRegistrationCompleteEvent(m.getBody().get("result").toString(), request.getLocale(), getAppUrl(request)));
         return customResponse.HandleResponse(true, "Email Sent Successfully, Please Check your inbox", "", HttpStatus.OK);
     }
 
