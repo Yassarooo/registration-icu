@@ -16,10 +16,10 @@ import java.util.Map;
 @FeignClient(name = "auth-service", fallback = AuthServiceClient.AuthServiceClientClientFallback.class)
 public interface AuthServiceClient {
 
-    @PostMapping(value = "/api/register")
+    @PostMapping(value = "/api/auth/register")
     ResponseEntity<Map<String, Object>> registerUserAccount(UserDTO user);
 
-    @PostMapping(value = "/api/activate")
+    @PostMapping(value = "/api/auth/activate")
     ResponseEntity<Map<String, Object>> activateUserAccount(String emailorusername);
 
     @Component
