@@ -4,6 +4,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
 
 @Entity
 public class VerificationToken {
@@ -14,10 +15,14 @@ public class VerificationToken {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @Column
     private String token;
 
+    @Column
     private String code;
 
+    @Email
+    @Column
     private String email;
 
     private Date expiryDate;
@@ -85,7 +90,7 @@ public class VerificationToken {
         return new Date(cal.getTime().getTime());
     }
 
-    public void updateToken(final String token,final String code) {
+    public void updateToken(final String token, final String code) {
         this.token = token;
         this.code = code;
         this.expiryDate = calculateExpiryDate(EXPIRATION);
