@@ -23,6 +23,7 @@ import java.util.Locale;
 import java.util.Map;
 
 @RefreshScope
+@CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 public class RegistrationController {
 
