@@ -55,7 +55,7 @@ public class RegistrationController {
     public ResponseEntity<Map<String, Object>> registerAndSendEmail(@RequestBody UserDTO user, final HttpServletRequest request) {
         ResponseEntity<Map<String, Object>> m = authServiceClient.registerUserAccount(user);
         if (m.getBody().get("success").equals(false)) {
-            return customResponse.HandleResponse(false, "couldn't register account", "", HttpStatus.BAD_REQUEST);
+            return customResponse.HandleResponse(false, "Existing Email Or Username !", "", HttpStatus.OK);
         }
         eventPublisher.publishEvent(new OnRegistrationCompleteEvent(user.getEmail(), request.getLocale(), getAppUrl(request)));
         return customResponse.HandleResponse(true, "Email Sent Successfully, Please Check your inbox", "", HttpStatus.OK);
