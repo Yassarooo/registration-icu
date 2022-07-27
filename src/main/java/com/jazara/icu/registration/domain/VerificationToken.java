@@ -1,10 +1,11 @@
 package com.jazara.icu.registration.domain;
 
+import org.hibernate.validator.constraints.Email;
+
 import java.util.Calendar;
 import java.util.Date;
 
 import javax.persistence.*;
-import javax.validation.constraints.Email;
 
 @Entity
 public class VerificationToken {
