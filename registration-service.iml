@@ -6,6 +6,7 @@
         <setting name="validation-enabled" value="true" />
         <setting name="provider-name" value="Hibernate" />
         <datasource-mapping>
+          <factory-entry name="entityManagerFactory" />
           <factory-entry name="registration-service" />
         </datasource-mapping>
         <naming-strategy-map />
@@ -210,7 +211,6 @@
     <orderEntry type="library" name="Maven: com.googlecode.json-simple:json-simple:1.1.1" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot-starter-data-jpa:2.3.1.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot-starter-jdbc:2.3.1.RELEASE" level="project" />
-    <orderEntry type="library" name="Maven: com.zaxxer:HikariCP:3.4.5" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-jdbc:5.2.7.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: jakarta.transaction:jakarta.transaction-api:1.3.3" level="project" />
     <orderEntry type="library" name="Maven: jakarta.persistence:jakarta.persistence-api:2.2.3" level="project" />
@@ -247,5 +247,6 @@
     <orderEntry type="library" name="Maven: org.glassfish:jakarta.el:3.0.3" level="project" />
     <orderEntry type="library" name="Maven: org.apache.tomcat.embed:tomcat-embed-websocket:9.0.36" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-webmvc:5.2.7.RELEASE" level="project" />
+    <orderEntry type="library" name="Maven: com.zaxxer:HikariCP:3.4.5" level="project" />
   </component>
 </module>
