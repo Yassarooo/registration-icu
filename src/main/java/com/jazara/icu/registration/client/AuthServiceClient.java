@@ -14,16 +14,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.HashMap;
 import java.util.Map;
 
-@CrossOrigin(origins = "*", maxAge = 3600)
 @FeignClient(name = "auth-service", fallback = AuthServiceClient.AuthServiceClientClientFallback.class)
 public interface AuthServiceClient {
 
     @PostMapping(value = "/api/auth/register")
-    @CrossOrigin(origins = "*", maxAge = 3600)
     ResponseEntity<Map<String, Object>> registerUserAccount(UserDTO user);
 
     @PostMapping(value = "/api/auth/activate")
-    @CrossOrigin(origins = "*", maxAge = 3600)
     ResponseEntity<Map<String, Object>> activateUserAccount(String emailorusername);
 
     @Component
