@@ -68,9 +68,14 @@ public class RegistrationController {
 
     @GetMapping("/resendEmail")
     public ResponseEntity<Map<String, Object>> resendRegistrationToken(final HttpServletRequest request, @RequestParam("email") final String email) {
-        final VerificationToken newToken = tokenService.generateNewVerificationToken(email);
-        mailSender.send(constructResendVerificationTokenEmail(getAppUrl(request), request.getLocale(), newToken, email));
-        return customResponse.HandleResponse(true, "Email Sent Successfully, Please Check your inbox", "", HttpStatus.OK);
+        try {
+            final VerificationToken newToken = tokenService.generateNewVerificationToken(email);
+            mailSender.send(constructResendVerificationTokenEmail(getAppUrl(request), request.getLocale(), newToken, email));
+            return customResponse.HandleResponse(true, "Email Sent Successfully, Please Check your inbox", "", HttpStatus.OK);
+
+        } catch (Exception e) {
+            return customResponse.HandleResponse(false, e.toString(), "", HttpStatus.OK);
+        }
     }
 
     // ============== NON-API ============

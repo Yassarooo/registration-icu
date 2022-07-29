@@ -49,18 +49,18 @@ public class VerificationTokenService {
         return null;
     }
 
-    public VerificationToken generateNewVerificationToken(final String email) {
-            VerificationToken vToken = tokenRepository.findByEmail(email);
-            if (vToken != null) {
-                Random rnd = new Random();
-                int code = rnd.nextInt(999999);
-                vToken.updateToken(UUID.randomUUID()
-                        .toString(), String.format("%06d", code));
-                return tokenRepository.save(vToken);
-            } else {
-                System.err.println("token Not Found");
-                return null;
-            }
+    public VerificationToken generateNewVerificationToken(final String email) throws Exception {
+        VerificationToken vToken = tokenRepository.findByEmail(email);
+        if (vToken != null) {
+            Random rnd = new Random();
+            int code = rnd.nextInt(999999);
+            vToken.updateToken(UUID.randomUUID()
+                    .toString(), String.format("%06d", code));
+            return tokenRepository.save(vToken);
+        } else {
+            System.err.println("token Not Found");
+            throw new Exception("Unregistered , Or Account is already Activated");
+        }
     }
 
     public void deleteToken(final String email) {
@@ -74,7 +74,7 @@ public class VerificationTokenService {
         }
     }
 
-    public String validateVerificationToken(String token,String email) {
+    public String validateVerificationToken(String token, String email) {
         VerificationToken verificationToken = tokenRepository.findByToken(token);
         if (verificationToken == null) {
             verificationToken = tokenRepository.findByCode(token);
