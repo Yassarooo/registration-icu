@@ -9,6 +9,7 @@ public class UserDTO {
     private String gender;
     private String phonenumber;
     private String password;
+    private String appToken;
     private Date dob;
 
     public String getName() {
@@ -65,5 +66,13 @@ public class UserDTO {
 
     public void setDob(Date dob) {
         this.dob = dob;
+    }
+
+    public String getAppToken() {
+        return appToken;
+    }
+
+    public void setAppToken(String appToken) {
+        this.appToken = appToken;
     }
 }
