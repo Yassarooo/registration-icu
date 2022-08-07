@@ -58,7 +58,7 @@ public class RegistrationController {
             return customResponse.HandleResponse(false, "Existing Email Or Username !", "", HttpStatus.OK);
         }
         eventPublisher.publishEvent(new OnRegistrationCompleteEvent(user.getEmail(), request.getLocale(), getAppUrl(request)));
-        return customResponse.HandleResponse(true, "Email Sent Successfully, Please Check your inbox", "", HttpStatus.OK);
+        return customResponse.HandleResponse(true, "Email Sent Successfully, Please Check your inbox", null, HttpStatus.OK);
     }
 
     @PostMapping(value = "/registrationconfirm")
